@@ -1,6 +1,6 @@
 <!-- BEGIN: main -->
 <div class="nv-fullbg">
-    <form method="post" action="{ACTION_FILE}" onsubmit="return nv_validForm(this);" novalidate>
+    <div method="post" action="{ACTION_FILE}" onsubmit="return nv_validForm(this);" novalidate>
 		<!-- BEGIN: cats -->
 		<div class="form-group">
 			<div class="input-group">
@@ -77,6 +77,14 @@
 					<em class="fa fa-home fa-lg fa-horizon"></em>
 				</span>
                 <input type="text" maxlength="60" value="{CONTENT.faddress}" name="faddress" class="form-control" placeholder="{LANG.address}" />
+            </div>
+		</div>
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-addon">
+					<em class="fa fa-home fa-lg fa-horizon"></em>
+				</span>
+                <input type="text" maxlength="60" value="{CONTENT.ftextcode}" name="fte" class="form-control" placeholder="Mã số thuế" />
             </div>
         </div>
 		<div class="form-group">

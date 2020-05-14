@@ -71,6 +71,7 @@ $fname = '';
 $femail = '';
 $fphone = '';
 $faddress = '';
+$ftextcode = '';
 $sendcopy = true;
 if (!defined('NV_IS_MODADMIN') and empty($module_config[$module_name]['sendcopymode']) and (!defined('NV_IS_USER') or $user_info['email_verification_time'] == 0 or $user_info['email_verification_time'] == -1)) {
     $sendcopy = false;
@@ -99,6 +100,7 @@ if ($nv_Request->isset_request('checkss', 'post')) {
             'fname' => $fname,
             'femail' => $femail,
             'fphone' => $fphone,
+            'ftextcode' => $ftextcode,
             'sendcopy' => $sendcopy,
             'bodytext' => ''
         );
@@ -177,8 +179,8 @@ if ($nv_Request->isset_request('checkss', 'post')) {
     $sender_id = intval(defined('NV_IS_USER') ? $user_info['userid'] : 0);
 
     $sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . '_send
-    (cid, cat, title, content, send_time, sender_id, sender_name, sender_email, sender_phone, sender_address, sender_ip, is_read, is_reply) VALUES
-    (' . $fpart . ', :cat, :title, :content, ' . NV_CURRENTTIME . ', ' . $sender_id . ', :sender_name, :sender_email, :sender_phone, :sender_address, :sender_ip, 0, 0)';
+    (cid, cat, title, content, send_time, sender_id, sender_name, sender_email, sender_phone, sender_address, sender_ip,textcode, is_read, is_reply) VALUES
+    (' . $fpart . ', :cat, :title, :content, ' . NV_CURRENTTIME . ', ' . $sender_id . ', :sender_name, :sender_email, :sender_phone, :sender_address, :sender_ip,:textcode, 0, 0)';
     $data_insert = array();
     $data_insert['cat'] = $fcat;
     $data_insert['title'] = $ftitle;
@@ -187,10 +189,11 @@ if ($nv_Request->isset_request('checkss', 'post')) {
     $data_insert['sender_email'] = $femail;
     $data_insert['sender_phone'] = $fphone;
     $data_insert['sender_address'] = $faddress;
+    $data_insert['textcode'] = $ftextcode;
     $data_insert['sender_ip'] = $client_info['ip'];
     $row_id = $db->insert_id($sql, 'id', $data_insert);
     if ($row_id > 0) {
-        $fcon_mail = contact_sendcontact($row_id, $fcat, $ftitle, $fname, $femail, $fphone, $fcon, $fpart);
+        $fcon_mail = contact_sendcontact($row_id, $fcat, $ftitle, $fname, $femail, $fphone, $fcon, $fpart, $ftextcode);
 
         $email_list = array();
         if (!empty($array_department[$fpart]['email'])) {

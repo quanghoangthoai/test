@@ -8,7 +8,7 @@
  * @Createdate Apr 20, 2010 10:47:41 AM
  */
 
-if (! defined('NV_IS_FILE_MODULES')) {
+if (!defined('NV_IS_FILE_MODULES')) {
     die('Stop!!!');
 }
 
@@ -55,6 +55,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
  sender_email varchar(100) NOT NULL,
  sender_phone varchar(20) DEFAULT '',
  sender_ip varchar(39) NOT NULL DEFAULT '',
+ textcode varchar(256) NOT NULL DEFAULT '',
  is_read tinyint(1) unsigned NOT NULL DEFAULT '0',
  is_reply tinyint(1) unsigned NOT NULL DEFAULT '0',
  PRIMARY KEY (id),
